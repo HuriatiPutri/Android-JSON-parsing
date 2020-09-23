@@ -3,9 +3,11 @@ package com.example.testingapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -28,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private ListView lv;
 
     // URL to get contacts JSON
-    private static String url = "https://api.androidhive.info/contacts/";
+//    private static String url = "https://api.androidhive.info/contacts/";
+    private static String url = "http://192.168.43.246/testhttp/index.php";
 
     ArrayList<HashMap<String, String>> contactList;
     @Override
@@ -41,7 +44,16 @@ public class MainActivity extends AppCompatActivity {
         lv = (ListView) findViewById(R.id.list);
 
         new GetContacts().execute();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        new GetContacts().execute();
+    }
+
+    public void add(View view) {
+        startActivity(new Intent(MainActivity.this, PostActivity.class));
     }
 
     private class GetContacts extends AsyncTask<Void, Void, Void> {
@@ -78,16 +90,17 @@ public class MainActivity extends AppCompatActivity {
                         JSONObject c = contacts.getJSONObject(i);
 
                         String id = c.getString("id");
-                        String name = c.getString("name");
+                        String name = c.getString("nama");
                         String email = c.getString("email");
-                        String address = c.getString("address");
-                        String gender = c.getString("gender");
+                        String mobile = c.getString("notelp");
+//                        String address = c.getString("address");
+//                        String gender = c.getString("gender");
 
                         // Phone node is JSON Object
-                        JSONObject phone = c.getJSONObject("phone");
-                        String mobile = phone.getString("mobile");
-                        String home = phone.getString("home");
-                        String office = phone.getString("office");
+//                        JSONObject phone = c.getJSONObject("phone");
+//                        String mobile = phone.getString("mobile");
+//                        String home = phone.getString("home");
+//                        String office = phone.getString("office");
 
                         // tmp hash map for single contact
                         HashMap<String, String> contact = new HashMap<>();
