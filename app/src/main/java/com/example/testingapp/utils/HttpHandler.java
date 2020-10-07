@@ -72,13 +72,13 @@ public class HttpHandler {
         return sb.toString();
     }
 
-    public static String sendPost(String r_url , JSONObject postDataParams) throws Exception {
+    public static String sendPost(String r_url , JSONObject postDataParams, String type) throws Exception {
         URL url = new URL(r_url);
 
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setReadTimeout(20000);
         conn.setConnectTimeout(20000);
-        conn.setRequestMethod("POST");
+        conn.setRequestMethod(type);
         conn.setDoInput(true);
         conn.setDoOutput(true);
 
